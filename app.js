@@ -1,11 +1,11 @@
 'use strict';
 
-Pictures.allpictures = [];
+var allpictures = [];
 
 function Pictures(name, filepath) {
   this.name = name;
   this.filepath = filepath;
-  Pictures.allpictures.push(this);
+  allpictures.push(this);
 }
 
 new Pictures('Bag', 'img/bag.jpg');
@@ -26,13 +26,40 @@ new Pictures('Usb', 'img/usb.gif');
 new Pictures('Water Can', 'img/water-can.jpg');
 new Pictures('Wine Glass', 'img/wine-glass.jpg');
 
-var imgEl =document.getElementById('image');
-imgEl.addEventListener('click', randomPic);
 
-function randomPic() {
-  var randomIndex = Math.floor(Math.random() * Pictures.allpictures.length);
-  imgEl.src = Pictures.allpictures[randomIndex].filepath;
-}
+
+
+var generateRandom = function() {
+  return Math.floor(Math.random() * Pictures.allpictures.length);
+};
+
+var firstProduct;
+var secondProduct;
+var thirdProduct;
+
+var randomPic = function() {
+  var firstimg =document.getElementById('firstimg');
+  var secondimg =document.getElementById('secondimg');
+  var thirdimg =document.getElementById('thirdimg');
+  firstimg = generateRandom();
+  secondimg = generateRandom();
+  thirdimg = generateRandom();
+};
 randomPic();
+
+
+
+// var randomIndex = Math.floor(Math.random() * Pictures.allpictures.length);
+// firstimg.src = Pictures.allpictures[randomIndex].filepath;
+// secondimg.src = Pictures.allpictures[randomIndex].filepath;
+// thirdimg.src = Pictures.allpictures[randomIndex].filepath;
+// }
+
+
+
+firstimg.addEventListener('click', randomPic);
+secondimg.addEventListener('click', radomPic);
+thirdimg.addEventListener('click', radomPic);
+
 
 
