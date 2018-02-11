@@ -1,0 +1,11 @@
+img {
+    height: 300px;
+    width: 300px;
+    /* overflow: hidden; */
+    /* padding: auto;
+    border: 1px; */
+}
+
+body div {
+    display: inline-block;
+}
