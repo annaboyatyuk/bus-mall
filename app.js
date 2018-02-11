@@ -1,7 +1,7 @@
 'use strict';
 
 Pictures.allpictures = [];
-var recentlyViewed = [];
+// var recentlyViewed = [];
 // var totalClicks = 0;
 
 
@@ -33,6 +33,37 @@ new Pictures('Wine Glass', 'img/wine-glass.jpg');
 
 
 
+// function threeRandom(input) {
+//   if (input === recentlyViewed[0] || input === recentlyViewed[1] || input === recentlyViewed[2]) {
+//     return true;
+//   }
+// }
+
+// function displayImg() {
+//   do {
+//     var randomIndexOne = Math.floor(Math.random() * Pictures.allpictures.length);
+//   } while (threeRandom(randomIndexOne));
+
+//   do {
+//     var randomIndexTwo = Math.floor(Math.random() * Pictures.allpictures.length);
+//   } while (randomIndexOne === randomIndexTwo || threeRandom(randomIndexTwo));
+
+//   do {
+//     var randomIndexThree = Math.floor(Math.random() * Pictures.allpictures.length);
+//   } while (randomIndexOne === randomIndexThree || randomIndexTwo === randomIndexThree || threeRandom(randomIndexThree));
+
+//   firstImg.src = Pictures.allpictures[randomIndexOne].filepath;
+//   secondImg.src = Pictures.allpictures[randomIndexTwo].filepath;
+//   thirdImg.src = Pictures.allpictures[randomIndexThree].filepath;
+
+//   recentlyViewed.push(randomIndexOne, randomIndexTwo, randomIndexThree);
+//   if (recentlyViewed.length > 3) {
+//     recentlyViewed = recentlyViewed.slice(3);
+//   }
+// }
+// displayImg();
+
+
 var firstImg =document.getElementById('firstimg');
 var secondImg =document.getElementById('secondimg');
 var thirdImg =document.getElementById('thirdimg');
@@ -40,55 +71,42 @@ console.log(firstImg);
 console.log(secondImg);
 console.log(thirdImg);
 
-
-function threeRandom(input) {
-  if (input === recentlyViewed[0] || input === recentlyViewed[1] || input === recentlyViewed[2]) {
-    return true;
-  }
-}
-
-function displayImg() {
-  do {
-    var randomIndexOne = Math.floor(Math.random() * Pictures.allpictures.length);
-  } while (threeRandom(randomIndexOne));
-
-  do {
-    var randomIndexTwo = Math.floor(Math.random() * Pictures.allpictures.length);
-  } while (randomIndexOne === randomIndexTwo || threeRandom(randomIndexTwo));
-
-  do {
-    var randomIndexThree = Math.floor(Math.random() * Pictures.allpictures.length);
-  } while (randomIndexOne === randomIndexThree || randomIndexTwo === randomIndexThree || threeRandom(randomIndexThree));
-
-  firstImg.src = Pictures.allpictures[randomIndexOne].filepath;
-  secondImg.src = Pictures.allpictures[randomIndexTwo].filepath;
-  thirdImg.src = Pictures.allpictures[randomIndexThree].filepath;
-}
-displayImg();
-
-
-
-// function randomPic() {
-//   var randomIndexOne = Math.floor(Math.random() * Pictures.allpictures.length);
-//   firstImg.src = Pictures.allpictures[randomIndexOne].filepath;
-//   firstImg.addEventListener('click', randomPic);
-//   console.log(randomIndexOne);
-
-//   var randomIndexTwo = Math.floor(Math.random() * Pictures.allpictures.length);
-//   secondImg.src = Pictures.allpictures[randomIndexTwo].filepath;
-//   secondImg.addEventListener('click', randomPic);
-//   console.log(randomIndexTwo);
-
-//   var randomIndexThree = Math.floor(Math.random() * Pictures.allpictures.length);
-//   thirdImg.src = Pictures.allpictures[randomIndexThree].filepath;
-//   if (randomIndexOne === randomIndexTwo || randomIndexOne === randomIndexThree || randomIndexTwo === randomIndexThree) {
-//     randomIndexThree = randomPic();
+// function randomPic(event) {
+//   for (var i = 0; i < Pictures.allpictures.length; i++) {
+//     if (event.target.src.slice(48) === Pictures.allpictures[i].filepath) {
+//       Pictures.allpictures[i].countClicks++;
+//     }
 //   }
-//   thirdImg.addEventListener('click', randomPic);
-//   console.log(randomIndexThree);
+//   if
 // }
-// randomPic();
-// console.log(Pictures.allpictures.name);
+
+
+firstImg.addEventListener('click', randomPic);
+secondImg.addEventListener('click', randomPic);
+thirdImg.addEventListener('click', randomPic);
+
+
+function randomPic() {
+  var randomIndexOne = Math.floor(Math.random() * Pictures.allpictures.length);
+  firstImg.src = Pictures.allpictures[randomIndexOne].filepath;
+  firstImg.addEventListener('click', randomPic);
+  console.log(randomIndexOne);
+
+  var randomIndexTwo = Math.floor(Math.random() * Pictures.allpictures.length);
+  secondImg.src = Pictures.allpictures[randomIndexTwo].filepath;
+  secondImg.addEventListener('click', randomPic);
+  console.log(randomIndexTwo);
+
+  var randomIndexThree = Math.floor(Math.random() * Pictures.allpictures.length);
+  thirdImg.src = Pictures.allpictures[randomIndexThree].filepath;
+  if (randomIndexOne === randomIndexTwo || randomIndexOne === randomIndexThree || randomIndexTwo === randomIndexThree) {
+    randomIndexThree = randomPic();
+  }
+  thirdImg.addEventListener('click', randomPic);
+  console.log(randomIndexThree);
+}
+randomPic();
+console.log(Pictures.allpictures.name);
 
 
 
