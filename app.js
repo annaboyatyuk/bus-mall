@@ -1,15 +1,15 @@
 'use strict';
 
 Pictures.allpictures = [];
-// var recentlyViewed = [];
-// var totalClicks = 0;
+Pictures.recentlyViewed = [];
+Pictures.totalClicks = 0;
 
 
 function Pictures(name, filepath) {
   this.name = name;
   this.filepath = filepath;
-  // this.countClicks = 0;
-  // this.showCount = 0;
+  this.voteCount = 0;
+  this.viewCount = 0;
   Pictures.allpictures.push(this);
 }
 
@@ -33,82 +33,100 @@ new Pictures('Wine Glass', 'img/wine-glass.jpg');
 
 
 
-// function threeRandom(input) {
-//   if (input === recentlyViewed[0] || input === recentlyViewed[1] || input === recentlyViewed[2]) {
-//     return true;
-//   }
-// }
-
-// function displayImg() {
-//   do {
-//     var randomIndexOne = Math.floor(Math.random() * Pictures.allpictures.length);
-//   } while (threeRandom(randomIndexOne));
-
-//   do {
-//     var randomIndexTwo = Math.floor(Math.random() * Pictures.allpictures.length);
-//   } while (randomIndexOne === randomIndexTwo || threeRandom(randomIndexTwo));
-
-//   do {
-//     var randomIndexThree = Math.floor(Math.random() * Pictures.allpictures.length);
-//   } while (randomIndexOne === randomIndexThree || randomIndexTwo === randomIndexThree || threeRandom(randomIndexThree));
-
-//   firstImg.src = Pictures.allpictures[randomIndexOne].filepath;
-//   secondImg.src = Pictures.allpictures[randomIndexTwo].filepath;
-//   thirdImg.src = Pictures.allpictures[randomIndexThree].filepath;
-
-//   recentlyViewed.push(randomIndexOne, randomIndexTwo, randomIndexThree);
-//   if (recentlyViewed.length > 3) {
-//     recentlyViewed = recentlyViewed.slice(3);
-//   }
-// }
-// displayImg();
-
-
-var firstImg =document.getElementById('firstimg');
-var secondImg =document.getElementById('secondimg');
-var thirdImg =document.getElementById('thirdimg');
-console.log(firstImg);
-console.log(secondImg);
-console.log(thirdImg);
-
-// function randomPic(event) {
-//   for (var i = 0; i < Pictures.allpictures.length; i++) {
-//     if (event.target.src.slice(48) === Pictures.allpictures[i].filepath) {
-//       Pictures.allpictures[i].countClicks++;
-//     }
-//   }
-//   if
-// }
-
-
-firstImg.addEventListener('click', randomPic);
-secondImg.addEventListener('click', randomPic);
-thirdImg.addEventListener('click', randomPic);
-
-
-function randomPic() {
-  var randomIndexOne = Math.floor(Math.random() * Pictures.allpictures.length);
-  firstImg.src = Pictures.allpictures[randomIndexOne].filepath;
-  firstImg.addEventListener('click', randomPic);
-  console.log(randomIndexOne);
-
-  var randomIndexTwo = Math.floor(Math.random() * Pictures.allpictures.length);
-  secondImg.src = Pictures.allpictures[randomIndexTwo].filepath;
-  secondImg.addEventListener('click', randomPic);
-  console.log(randomIndexTwo);
-
-  var randomIndexThree = Math.floor(Math.random() * Pictures.allpictures.length);
-  thirdImg.src = Pictures.allpictures[randomIndexThree].filepath;
-  if (randomIndexOne === randomIndexTwo || randomIndexOne === randomIndexThree || randomIndexTwo === randomIndexThree) {
-    randomIndexThree = randomPic();
+function threeRandom(input) {
+  if (input === Pictures.recentlyViewed[0] || input === Pictures.recentlyViewed[1] || input === Pictures.recentlyViewed[2]) {
+    return true;
   }
-  thirdImg.addEventListener('click', randomPic);
-  console.log(randomIndexThree);
 }
-randomPic();
-console.log(Pictures.allpictures.name);
 
 
+var randomIndexOne;
+var randomIndexTwo;
+var randomIndexThree;
+
+
+function displayImg() {
+  do {
+    randomIndexOne = Math.floor(Math.random() * Pictures.allpictures.length);
+  } while (threeRandom(randomIndexOne));
+
+  do {
+    randomIndexTwo = Math.floor(Math.random() * Pictures.allpictures.length);
+  } while (randomIndexOne === randomIndexTwo || threeRandom(randomIndexTwo));
+
+  do {
+    randomIndexThree = Math.floor(Math.random() * Pictures.allpictures.length);
+  } while (randomIndexOne === randomIndexThree || randomIndexTwo === randomIndexThree || threeRandom(randomIndexThree));
+
+  firstImg.src = Pictures.allpictures[randomIndexOne].filepath;
+  secondImg.src = Pictures.allpictures[randomIndexTwo].filepath;
+  thirdImg.src = Pictures.allpictures[randomIndexThree].filepath;
+  firstImg.alt = Pictures.allpictures[randomIndexOne].name;
+  secondImg.alt = Pictures.allpictures[randomIndexTwo].name;
+  thirdImg.alt = Pictures.allpictures[randomIndexThree].name;
+
+  Pictures.allpictures[randomIndexOne].viewCount++;
+  Pictures.allpictures[randomIndexTwo].viewCount++;
+  Pictures.allpictures[randomIndexThree].viewCount++;
+
+  // console.log(randomIndexOne);
+  // console.log(randomIndexTwo);
+  // console.log(randomIndexThree);
+
+
+  Pictures.recentlyViewed.push(randomIndexOne, randomIndexTwo, randomIndexThree);
+  if (Pictures.recentlyViewed.length > 3) {
+    Pictures.recentlyViewed = Pictures.recentlyViewed.slice(3);
+  }
+}
+
+
+var firstImg = document.getElementById('firstimg');
+var secondImg = document.getElementById('secondimg');
+var thirdImg = document.getElementById('thirdimg');
+var resultsSection = document.getElementById('results');
+// console.log(firstImg);
+// console.log(secondImg);
+// console.log(thirdImg);
+
+
+function onClick(event) {
+  for (var i = 0; i < Pictures.allpictures.length; i++) {
+    console.log(Pictures.allpictures[i].voteCount + 'vote count');
+    if (event.target.alt === Pictures.allpictures[i].name) {
+      Pictures.allpictures[i].voteCount++;
+    }
+  }
+
+  if (Pictures.totalClicks < 24) {
+    Pictures.totalClicks++;
+  }else {
+    displayResults();
+    firstImg.removeEventListener('click', onClick);
+    secondImg.removeEventListener('click', onClick);
+    thirdImg.removeEventListener('click', onClick);
+  }
+  displayImg();
+}
+
+
+firstImg.addEventListener('click', onClick);
+secondImg.addEventListener('click', onClick);
+thirdImg.addEventListener('click', onClick);
+
+
+function displayResults() {
+  var h3El = document.createElement('h3');
+  h3El.textContent = 'Results: ';
+  resultsSection.appendChild(h3El);
+  var pEl;
+  for (var i = 0; i < Pictures.allpictures.length; i++) {
+    pEl = document.createElement('p');
+    pEl.textContent = 'The ' + Pictures.allpictures[i].name + ' image was selected a total of ' + Pictures.allpictures[i].voteCount + ' out of ' + Pictures.allpictures[i].viewCount + ': '; resultsSection.appendChild(pEl);
+  }
+}
+
+displayImg();
 
 
 
