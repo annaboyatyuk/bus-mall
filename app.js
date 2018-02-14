@@ -1,8 +1,8 @@
 'use strict';
 
 Pictures.allpictures = [];
-var recentlyViewed = [];
-var totalClicks = 0;
+Pictures.recentlyViewed = [];
+Pictures.totalClicks = 0;
 
 
 function Pictures(name, filepath) {
@@ -34,23 +34,29 @@ new Pictures('Wine Glass', 'img/wine-glass.jpg');
 
 
 function threeRandom(input) {
-  if (input === recentlyViewed[0] || input === recentlyViewed[1] || input === recentlyViewed[2]) {
+  if (input === Pictures.recentlyViewed[0] || input === Pictures.recentlyViewed[1] || input === Pictures.recentlyViewed[2]) {
     return true;
   }
 }
 
 
+
+var randomIndexOne;
+var randomIndexTwo;
+var randomIndexThree;
+
+
 function displayImg() {
   do {
-    var randomIndexOne = Math.floor(Math.random() * Pictures.allpictures.length);
+    randomIndexOne = Math.floor(Math.random() * Pictures.allpictures.length);
   } while (threeRandom(randomIndexOne));
 
   do {
-    var randomIndexTwo = Math.floor(Math.random() * Pictures.allpictures.length);
+    randomIndexTwo = Math.floor(Math.random() * Pictures.allpictures.length);
   } while (randomIndexOne === randomIndexTwo || threeRandom(randomIndexTwo));
 
   do {
-    var randomIndexThree = Math.floor(Math.random() * Pictures.allpictures.length);
+    randomIndexThree = Math.floor(Math.random() * Pictures.allpictures.length);
   } while (randomIndexOne === randomIndexThree || randomIndexTwo === randomIndexThree || threeRandom(randomIndexThree));
 
   firstImg.src = Pictures.allpictures[randomIndexOne].filepath;
@@ -69,9 +75,9 @@ function displayImg() {
   // console.log(randomIndexThree);
 
 
-  recentlyViewed.push(randomIndexOne, randomIndexTwo, randomIndexThree);
-  if (recentlyViewed.length > 3) {
-    recentlyViewed = recentlyViewed.slice(3);
+  Pictures.recentlyViewed.push(randomIndexOne, randomIndexTwo, randomIndexThree);
+  if (Pictures.recentlyViewed.length > 3) {
+    Pictures.recentlyViewed = Pictures.recentlyViewed.slice(3);
   }
 }
 
@@ -87,15 +93,29 @@ var resultsSection = document.getElementById('results');
 
 function onClick(event) {
   for (var i = 0; i < Pictures.allpictures.length; i++) {
-    console.log(Pictures.allpictures[i].voteCount+'bla');
-    // if (event.target.id === Pictures.allpictures[i].name) {
-    //   Pictures.allpictures[i].voteCount += 1;
-    // }
-    event.target.id === Pictures.allpictures[i].name;
-    Pictures.allpictures[i].voteCount += 1;
+    console.log(Pictures.allpictures[i].voteCount + 'bla');
+    if (event.target.id === Pictures.allpictures[i].name) {
+      Pictures.allpictures[i].voteCount++;
+    }
   }
-  if (totalClicks < 25) {
-    totalClicks++;
+      //   Pictures.allpictures[randomIndexOne].voteCount++;
+    //   Pictures.allpictures[randomIndexTwo].voteCount++;
+    //   Pictures.allpictures[randomIndexThree].voteCount++;
+    // }
+
+    // if (event.target.id === firstImg) {
+    //   Pictures.allpictures[i].voteCount++;
+    // }
+    // if (event.target.id === secondImg) {
+    //   Pictures.allpictures[i].voteCount++;
+    // }
+    // if (event.target.id === thirdImg) {
+    //   Pictures.allpictures[i].voteCount++;
+    // }
+  // }
+
+  if (Pictures.totalClicks < 25) {
+    Pictures.totalClicks++;
   }else {
     displayResults();
     firstImg.removeEventListener('click', onClick);
