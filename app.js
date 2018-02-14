@@ -8,8 +8,8 @@ var totalClicks = 0;
 function Pictures(name, filepath) {
   this.name = name;
   this.filepath = filepath;
-  this.countClicks = 0;
-  this.showCount = 0;
+  this.voteCount = 0;
+  this.viewCount = 0;
   Pictures.allpictures.push(this);
 }
 
@@ -39,6 +39,7 @@ function threeRandom(input) {
   }
 }
 
+
 function displayImg() {
   do {
     var randomIndexOne = Math.floor(Math.random() * Pictures.allpictures.length);
@@ -59,9 +60,13 @@ function displayImg() {
   secondImg.alt = Pictures.allpictures[randomIndexTwo].name;
   thirdImg.alt = Pictures.allpictures[randomIndexThree].name;
 
-  Pictures.allpictures[randomIndexOne].showCount++;
-  Pictures.allpictures[randomIndexTwo].showCount++;
-  Pictures.allpictures[randomIndexThree].showCount++;
+  Pictures.allpictures[randomIndexOne].viewCount++;
+  Pictures.allpictures[randomIndexTwo].viewCount++;
+  Pictures.allpictures[randomIndexThree].viewCount++;
+
+  // console.log(randomIndexOne);
+  // console.log(randomIndexTwo);
+  // console.log(randomIndexThree);
 
 
   recentlyViewed.push(randomIndexOne, randomIndexTwo, randomIndexThree);
@@ -71,35 +76,39 @@ function displayImg() {
 }
 
 
-
-var firstImg =document.getElementById('firstimg');
-var secondImg =document.getElementById('secondimg');
-var thirdImg =document.getElementById('thirdimg');
+var firstImg = document.getElementById('firstimg');
+var secondImg = document.getElementById('secondimg');
+var thirdImg = document.getElementById('thirdimg');
 var resultsSection = document.getElementById('results');
-console.log(firstImg);
-console.log(secondImg);
-console.log(thirdImg);
+// console.log(firstImg);
+// console.log(secondImg);
+// console.log(thirdImg);
 
-function randomPic(event) {
+
+function onClick(event) {
   for (var i = 0; i < Pictures.allpictures.length; i++) {
-    if (event.target.src.slice(48) === Pictures.allpictures[i].filepath) {
-      Pictures.allpictures[i].countClicks++;
-    }
+    console.log(Pictures.allpictures[i].voteCount+'bla');
+    // if (event.target.id === Pictures.allpictures[i].name) {
+    //   Pictures.allpictures[i].voteCount += 1;
+    // }
+    event.target.id === Pictures.allpictures[i].name;
+    Pictures.allpictures[i].voteCount += 1;
   }
   if (totalClicks < 25) {
     totalClicks++;
-    displayImg();
   }else {
     displayResults();
-    firstImg.removeEventListener('click', randomPic);
-    secondImg.removeEventListener('click', randomPic);
-    thirdImg.removeEventListener('click', randomPic);
+    firstImg.removeEventListener('click', onClick);
+    secondImg.removeEventListener('click', onClick);
+    thirdImg.removeEventListener('click', onClick);
   }
+  displayImg();
 }
 
-firstImg.addEventListener('click', randomPic);
-secondImg.addEventListener('click', randomPic);
-thirdImg.addEventListener('click', randomPic);
+
+firstImg.addEventListener('click', onClick);
+secondImg.addEventListener('click', onClick);
+thirdImg.addEventListener('click', onClick);
 
 
 function displayResults() {
@@ -109,7 +118,7 @@ function displayResults() {
   var pEl;
   for (var i = 0; i < Pictures.allpictures.length; i++) {
     pEl = document.createElement('p');
-    pEl.textContent = 'The ' + Pictures.allpictures[i].name + ' image was selected a total of ' + Pictures.allpictures[i].countClicks + ' out of ' + Pictures.allpictures[i].showCount + ': '; resultsSection.appendChild(pEl);
+    pEl.textContent = 'The ' + Pictures.allpictures[i].name + ' image was selected a total of ' + Pictures.allpictures[i].voteCount + ' out of ' + Pictures.allpictures[i].viewCount + ': '; resultsSection.appendChild(pEl);
   }
 }
 
