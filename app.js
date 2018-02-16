@@ -12,10 +12,10 @@ function Pictures(name, filepath) {
   this.filepath = filepath;
   this.voteCount = 0;
   this.viewCount = 0;
-  // totalVotes.push(this.voteCount);
   itemNames.push(this.name);
   Pictures.allpictures.push(this);
 }
+
 
 new Pictures('Bag', 'img/bag.jpg');
 new Pictures('Banana Slicer', 'img/banana.jpg');
@@ -34,7 +34,6 @@ new Pictures('Unicorn Meat', 'img/unicorn.jpg');
 new Pictures('Usb', 'img/usb.gif');
 new Pictures('Water Can', 'img/water-can.jpg');
 new Pictures('Wine Glass', 'img/wine-glass.jpg');
-
 
 
 function threeRandom(input) {
@@ -73,10 +72,6 @@ function displayImg() {
   Pictures.allpictures[randomIndexTwo].viewCount++;
   Pictures.allpictures[randomIndexThree].viewCount++;
 
-  // console.log(randomIndexOne);
-  // console.log(randomIndexTwo);
-  // console.log(randomIndexThree);
-
 
   Pictures.recentlyViewed.push(randomIndexOne, randomIndexTwo, randomIndexThree);
   if (Pictures.recentlyViewed.length > 3) {
@@ -88,10 +83,6 @@ function displayImg() {
 var firstImg = document.getElementById('firstimg');
 var secondImg = document.getElementById('secondimg');
 var thirdImg = document.getElementById('thirdimg');
-var resultsSection = document.getElementById('results');
-// console.log(firstImg);
-// console.log(secondImg);
-// console.log(thirdImg);
 
 
 function onClick(event) {
@@ -120,63 +111,52 @@ secondImg.addEventListener('click', onClick);
 thirdImg.addEventListener('click', onClick);
 
 
-function displayResults() {
-  var h3El = document.createElement('h3');
-  h3El.textContent = 'Results: ';
-  resultsSection.appendChild(h3El);
-  var pEl;
-  for (var i = 0; i < Pictures.allpictures.length; i++) {
-    pEl = document.createElement('p');
-    pEl.textContent = 'The ' + Pictures.allpictures[i].name + ' image was selected a total of ' + Pictures.allpictures[i].voteCount + ' out of ' + Pictures.allpictures[i].viewCount + ': '; resultsSection.appendChild(pEl);
-  }
-}
-
 displayImg();
 
-var ctx = document.getElementById('chart').getContext('2d');
 
+function displayResults() {
 
+  var ctx = document.getElementById('chart').getContext('2d');
 
-
-var myChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: itemNames,
-    datasets: [{
-      label: 'Number of Votes',
-      data: totalVotes,
-      backgroundColor: [
-        'rgb(173, 52, 78)',
-        'rgb(168, 183, 55)',
-        'rgb(110, 39, 123)',
-        'rgb(89, 163, 49)',
-        'rgb(122, 0, 26)',
-        'rgb(114, 129, 0)',
-        'rgb(74, 2, 87)',
-        'rgb(40, 115, 0)',
-        'rgb(245, 166, 183)',
-        'rgb(242, 252, 171)',
-        'rgb(200, 144, 210)',
-        'rgb(188, 238, 161)',
-        'rgb(195, 38, 72)',
-        'rgb(186, 205, 40)',
-        'rgb(122, 30, 138)',
-        'rgb(87, 183, 36)',
-        'rgb(124, 65, 78)'
-      ]
-    }]
-  },
-  options: {
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: itemNames,
+      datasets: [{
+        label: 'Number of Votes',
+        data: totalVotes,
+        backgroundColor: [
+          'rgb(173, 52, 78)',
+          'rgb(168, 183, 55)',
+          'rgb(110, 39, 123)',
+          'rgb(89, 163, 49)',
+          'rgb(122, 0, 26)',
+          'rgb(114, 129, 0)',
+          'rgb(74, 2, 87)',
+          'rgb(40, 115, 0)',
+          'rgb(245, 166, 183)',
+          'rgb(242, 252, 171)',
+          'rgb(200, 144, 210)',
+          'rgb(188, 238, 161)',
+          'rgb(195, 38, 72)',
+          'rgb(186, 205, 40)',
+          'rgb(122, 30, 138)',
+          'rgb(87, 183, 36)',
+          'rgb(124, 65, 78)'
+        ]
       }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
     }
-  }
-});
-
+  });
+}
 
 
 

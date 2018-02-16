@@ -1,14 +1,12 @@
 img {
     height: 300px;
     width: 300px;
-    /* overflow: hidden; */
-    /* padding: auto;
-    border: 1px; */
 }
 
 body div {
     display: inline-block;
-    /* color: rgb(112, 112, 243); */
 }
 
-
+#charts {
+    width: 800px;
+}
