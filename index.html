@@ -5,14 +5,19 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="style.css" />
-    <!-- <link rel="stylesheet" type="text/css" href="reset.css" /> -->
+
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
+
     <title>Bus Mall</title>
 </head>
 
 <body>
+
     <header>
         <h1>Vote for your favorite product!</h1>
     </header>
+
     <div class="container">
         <img id="firstimg" src="" alt="">
         <img id="secondimg" src="" alt="">
@@ -21,16 +26,13 @@
 
     <p id='results'></p>
 
-    <div class="explanation">
-        <h4>Explanation</h4>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, atque incidunt. Suscipit voluptatibus ad laudantium expedita nam? Modi quibusdam excepturi laudantium architecto, quasi est nobis aspernatur? Eum velit voluptatibus a.</p>
+
+    <div id="charts">
+        <canvas id="chart"></canvas>
     </div>
-    
     <script src="app.js"></script>
     
 </body>
 
 </html>
-
-
 
