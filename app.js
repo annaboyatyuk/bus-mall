@@ -94,7 +94,7 @@ function onClick(event) {
     }
   }
 
-  if (Pictures.totalClicks < 25) {
+  if (Pictures.totalClicks < 24) {
     Pictures.totalClicks++;
   }else {
     displayResults();
