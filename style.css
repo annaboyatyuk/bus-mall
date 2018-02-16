@@ -1,6 +1,24 @@
+
+* {
+    background-color: rgb(236, 245, 248)
+}
+header {
+    background-color: rgb(170, 205, 221);
+    height: 100px;
+    text-align: right;
+    color: rgba(30, 36, 39, 0.904);
+    margin-bottom: 40px;
+}
+
+h1 {
+    font-size: 50px;
+    background-color: rgb(170, 205, 221);
+}
+
 img {
     height: 300px;
     width: 300px;
+    margin: 10px;
 }
 
 body div {
@@ -10,3 +28,15 @@ body div {
 #charts {
     width: 800px;
 }
+
+
+.container {
+    float: right;
+}
+
+#results {
+    float: left;
+    color: rgb(27, 27, 27);
+    margin-top: 50px;
+}
+
