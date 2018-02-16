@@ -3,6 +3,8 @@
 Pictures.allpictures = [];
 Pictures.recentlyViewed = [];
 Pictures.totalClicks = 0;
+var itemNames = [];
+var totalVotes = [];
 
 
 function Pictures(name, filepath) {
@@ -10,6 +12,8 @@ function Pictures(name, filepath) {
   this.filepath = filepath;
   this.voteCount = 0;
   this.viewCount = 0;
+  // totalVotes.push(this.voteCount);
+  itemNames.push(this.name);
   Pictures.allpictures.push(this);
 }
 
@@ -95,6 +99,7 @@ function onClick(event) {
     console.log(Pictures.allpictures[i].voteCount + 'vote count');
     if (event.target.alt === Pictures.allpictures[i].name) {
       Pictures.allpictures[i].voteCount++;
+      totalVotes.push(Pictures.allpictures[i].voteCount);
     }
   }
 
@@ -127,6 +132,37 @@ function displayResults() {
 }
 
 displayImg();
+
+var ctx = document.getElementById('chart').getContext('2d');
+
+var colors = function() {
+  for (var i = 0; i < Pictures.length; i++) {
+    ctx.fillStyle = 'rgb(' + Math.floor(255 - 42.5 * i) + ', 112, 243)';
+  }
+};
+
+
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: itemNames,
+    datasets: [{
+      label: 'Number of Votes',
+      data: totalVotes,
+      backgroundColor: colors
+    }]
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  }
+});
+
 
 
 
