@@ -135,11 +135,7 @@ displayImg();
 
 var ctx = document.getElementById('chart').getContext('2d');
 
-var colors = function() {
-  for (var i = 0; i < Pictures.length; i++) {
-    ctx.fillStyle = 'rgb(' + Math.floor(255 - 42.5 * i) + ', 112, 243)';
-  }
-};
+
 
 
 var myChart = new Chart(ctx, {
@@ -149,7 +145,25 @@ var myChart = new Chart(ctx, {
     datasets: [{
       label: 'Number of Votes',
       data: totalVotes,
-      backgroundColor: colors
+      backgroundColor: [
+        'rgb(173, 52, 78)',
+        'rgb(168, 183, 55)',
+        'rgb(110, 39, 123)',
+        'rgb(89, 163, 49)',
+        'rgb(122, 0, 26)',
+        'rgb(114, 129, 0)',
+        'rgb(74, 2, 87)',
+        'rgb(40, 115, 0)',
+        'rgb(245, 166, 183)',
+        'rgb(242, 252, 171)',
+        'rgb(200, 144, 210)',
+        'rgb(188, 238, 161)',
+        'rgb(195, 38, 72)',
+        'rgb(186, 205, 40)',
+        'rgb(122, 30, 138)',
+        'rgb(87, 183, 36)',
+        'rgb(124, 65, 78)'
+      ]
     }]
   },
   options: {
