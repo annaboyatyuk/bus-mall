@@ -12,7 +12,6 @@ function Pictures(name, filepath) {
   this.filepath = filepath;
   this.voteCount = 0;
   this.viewCount = 0;
-  // itemNames.push(this.name);
   Pictures.allpictures.push(this);
 }
 
@@ -87,7 +86,6 @@ var thirdImg = document.getElementById('thirdimg');
 
 function onClick(event) {
   for (var i = 0; i < Pictures.allpictures.length; i++) {
-    // console.log(Pictures.allpictures[i].voteCount + 'vote count');
     if (event.target.alt === Pictures.allpictures[i].name) {
       Pictures.allpictures[i].voteCount++;
     }
