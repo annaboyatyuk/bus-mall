@@ -12,7 +12,6 @@ function Pictures(name, filepath) {
   this.filepath = filepath;
   this.voteCount = 0;
   this.viewCount = 0;
-  itemNames.push(this.name);
   Pictures.allpictures.push(this);
 }
 
@@ -87,10 +86,8 @@ var thirdImg = document.getElementById('thirdimg');
 
 function onClick(event) {
   for (var i = 0; i < Pictures.allpictures.length; i++) {
-    console.log(Pictures.allpictures[i].voteCount + 'vote count');
     if (event.target.alt === Pictures.allpictures[i].name) {
       Pictures.allpictures[i].voteCount++;
-      totalVotes.push(Pictures.allpictures[i].voteCount);
     }
   }
 
@@ -114,7 +111,14 @@ thirdImg.addEventListener('click', onClick);
 displayImg();
 
 
+
 function displayResults() {
+
+  console.log(Pictures.allpictures);
+  for(let i in Pictures.allpictures) {
+    itemNames.push(Pictures.allpictures[i].name);
+    totalVotes.push(Pictures.allpictures[i].voteCount);
+  }
 
   var ctx = document.getElementById('chart').getContext('2d');
 
@@ -125,6 +129,7 @@ function displayResults() {
       datasets: [{
         label: 'Number of Votes',
         data: totalVotes,
+        hoverBackgroundColor: 'rgb(170, 205, 221)',
         backgroundColor: [
           'rgb(173, 52, 78)',
           'rgb(168, 183, 55)',
@@ -157,6 +162,14 @@ function displayResults() {
     }
   });
 }
+
+
+
+// function getLocalStorage() {
+//   if (localStorage.Pictures) {
+//     var strPictures = localStorage.getItem()
+//   }
+// }
 
 
 
