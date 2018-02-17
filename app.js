@@ -98,6 +98,12 @@ function onClick(event) {
     firstImg.removeEventListener('click', onClick);
     secondImg.removeEventListener('click', onClick);
     thirdImg.removeEventListener('click', onClick);
+
+    localStorage.setItem('allTheVotes', JSON.stringify(Pictures.allpictures));
+    localStorage.setItem('allTheViews', JSON.stringify(Pictures.allpictures));
+    localStorage.setItem('names', JSON.stringify(itemNames));
+    makeLocalStorage();
+
   }
   displayImg();
 }
@@ -106,6 +112,20 @@ function onClick(event) {
 firstImg.addEventListener('click', onClick);
 secondImg.addEventListener('click', onClick);
 thirdImg.addEventListener('click', onClick);
+
+
+
+
+function makeLocalStorage() {
+  if (localStorage.allTheVotes) {
+    Pictures.allpictures = JSON.parse(localStorage.allTheVotes);
+    Pictures.recentlyViewed = JSON.parse(localStorage.allTheViews);
+    Pictures.itemNames = JSON.parse(localStorage.names);
+    displayImg();
+  }
+}
+
+
 
 
 displayImg();
@@ -162,14 +182,6 @@ function displayResults() {
     }
   });
 }
-
-
-
-// function getLocalStorage() {
-//   if (localStorage.Pictures) {
-//     var strPictures = localStorage.getItem()
-//   }
-// }
 
 
 
